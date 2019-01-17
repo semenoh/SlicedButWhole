@@ -1,5 +1,6 @@
 import UIKit
 import app
+import Firebase
 
 class ViewController: UIViewController {
     
@@ -9,9 +10,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let db = Database()
-        //todo
+        db.firebase = Database.database()
         presenter = Presenter(db: db)
-
     }
 
     override func didReceiveMemoryWarning() {
