@@ -135,3 +135,5 @@ task copyFramework {
         }
     }
 }
+
+apply plugin: 'com.google.gms.google-services'
