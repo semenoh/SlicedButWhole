@@ -5,3 +5,6 @@ build
 app/build
 app/*.iml
 app/google-services.json
+iosApp/Pods
+iosApp/Podfile.lock
+iosApp/iosApp/GoogleServices-Info.plist
