@@ -44,7 +44,21 @@ kotlin {
         fromPreset(presets.iosX64, 'ios') {
             // This preset is for iPhone emulator
             // Switch here to presets.iosArm64 (or iosArm32) to build library for iPhone device
-            compilations.main.outputKinds('FRAMEWORK')
+            compilations.main {
+                outputKinds('FRAMEWORK')
+                cinterops {
+                    firebase {
+                        defFile "$projectDir/src/iosMain/cinterop/firebase.def"
+                        includeDirs {
+                            allHeaders "$projectDir/../iosApp/Pods/FirebaseCore/Firebase/Core/Public",
+                                       "$projectDir/../iosApp/Pods/FirebaseDatabase/Firebase/Database/Public"
+                        }
+
+                        compilerOpts "-F$projectDir/../iosApp/Pods/Firebase -F$projectDir/../iosApp/Pods/FirebaseCore -F$projectDir/../iosApp/Pods/FirebaseDatabase"
+                        linkerOpts "-F$projectDir/../iosApp/Pods/Firebase -F$projectDir/../iosApp/Pods/FirebaseCore -F$projectDir/../iosApp/Pods/FirebaseDatabase"
+                    }
+                }
+            }
         }
 
         fromPreset(presets.js, 'js') {
