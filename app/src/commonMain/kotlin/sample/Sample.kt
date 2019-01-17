@@ -1,15 +1,13 @@
 package sample
 
-expect class Sample() {
-    fun checkMe(): Int
+expect class Database {
+    fun store(value: String)
 }
 
-expect object Platform {
-    val name: String
-}
-
-fun hello(): String = "Hello from ${Platform.name}"
-
-class Proxy {
-    fun proxyHello() = hello()
+class Presenter(private val db:Database) {
+    fun onSubmitClick(value: String?) {
+        if (value?.isNotBlank() == true) {
+            db.store(value)
+        }
+    }
 }

@@ -1,17 +1,15 @@
 package sample
 
+import kotlin.browser.document
+import kotlinx.html.*
 import kotlinx.html.dom.append
 import kotlinx.html.js.onClickFunction
-import kotlinx.html.js.p
-import kotlin.browser.document
-import kotlin.browser.window
+import org.w3c.dom.HTMLInputElement
 
-actual class Sample {
-    actual fun checkMe() = 7
-}
-
-actual object Platform {
-    actual val name: String = "JS"
+actual class Database {
+    actual fun store(value: String) {
+        //todo
+    }
 }
 
 fun main(args: Array<String>) {
@@ -22,9 +20,29 @@ fun main(args: Array<String>) {
     }
 }
 
+const val iid = "valueInput"
+
 fun init() {
-    document.body!!.append.p {
-        + hello()
-        onClickFunction = { window.alert(hello()) }
+
+    val db = Database()
+    val presenter = Presenter(db)
+
+    document.body!!.append.div {
+        label {
+            htmlFor = iid
+            text("Enter text")
+        }
+        textInput {
+            this.id = iid
+            type = InputType.text
+        }
+        button {
+            + "Submit"
+            onClickFunction = { event ->
+                val inputField = document.getElementById(iid) as HTMLInputElement
+                presenter.onSubmitClick(inputField.value)
+            }
+        }
     }
+
 }
